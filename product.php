@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once 'config/kosmarket_db.php';
 require_once 'config/helpers.php';
 require_once 'classes/Product.php';
