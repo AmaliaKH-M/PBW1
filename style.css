@@ -1,4 +1,6 @@
 /* KosMarket CSS - Brand Colors and Styling - Pure CSS Only */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap');
+
 :root {
     --primary-peach: #FFCDB2;
     --secondary-peach: #FFB4A2;
@@ -14,6 +16,7 @@
     --warning: #ffc107;
     --info: #17a2b8;
     --shadow: rgba(0, 0, 0, 0.1);
+    --logo-red: #e74c3c;
 }
 
 * {
@@ -23,23 +26,34 @@
 }
 
 body {
-    font-family: 'Arial', 'Helvetica', sans-serif;
+    font-family: 'Poppins', sans-serif;
     line-height: 1.6;
     color: var(--text-dark);
     background-color: var(--white);
 }
 
-/* Logo Styling with Script-like appearance */
+/* Logo Styling with Script font */
 .logo-font {
-    font-family: 'Brush Script MT', 'Comic Sans MS', cursive;
+    font-family: 'Dancing Script', cursive;
     font-weight: 700;
     color: var(--text-dark);
     text-decoration: none;
-    font-style: italic;
+    font-size: 2.2rem;
 }
 
 .logo .heart {
-    color: #e74c3c;
+    color: var(--logo-red);
+}
+
+.navbar .logo {
+    font-family: 'Dancing Script', cursive;
+    font-weight: 700;
+    color: var(--text-dark);
+    font-size: 2.2rem;
+}
+
+.navbar .logo .heart {
+    color: var(--logo-red);
 }
 
 /* Dark Mode Support */
@@ -1113,5 +1127,247 @@ body {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.5rem;
+    }
+}
+
+/* Additional styles for new features */
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+.card-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+.nav-scroll {
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.nav-scroll:hover {
+    color: var(--tertiary-rose);
+}
+
+/* Make sure card footer handles multiple buttons */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-gray);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .card-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .card-footer {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+}
+
+/* Admin Dashboard Styles */
+.dashboard-header {
+    margin-bottom: 2rem;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.dashboard-card {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px var(--shadow);
+    overflow: hidden;
+}
+
+.dashboard-card .card-header {
+    background: var(--primary-peach);
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-gray);
+}
+
+.dashboard-card .card-header h3 {
+    margin: 0;
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+.dashboard-card .card-body {
+    padding: 1.5rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 1rem;
+    background: var(--light-gray);
+    border-radius: 8px;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--tertiary-rose);
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.admin-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.dashboard-section {
+    margin-bottom: 3rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+    margin: 0;
+    color: var(--text-dark);
+}
+
+.table-container {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px var(--shadow);
+    overflow: hidden;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-gray);
+}
+
+.data-table th {
+    background: var(--light-gray);
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.data-table tr:hover {
+    background: var(--light-gray);
+}
+
+.profile-info {
+    margin-bottom: 1.5rem;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-gray);
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-item .label {
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.info-item .value {
+    color: var(--text-light);
+}
+
+.status-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 12px;
+    text-transform: uppercase;
+}
+
+.status-tersedia {
+    background: var(--success);
+    color: var(--white);
+}
+
+.status-terjual {
+    background: var(--warning);
+    color: var(--text-dark);
+}
+
+.status-terdonasi {
+    background: var(--info);
+    color: var(--white);
+}
+
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .admin-actions {
+        grid-template-columns: 1fr;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+    
+    .table-container {
+        overflow-x: auto;
+    }
+    
+    .data-table {
+        min-width: 600px;
     }
 }
