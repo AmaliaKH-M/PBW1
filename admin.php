@@ -4,8 +4,21 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Check if user is logged in and is admin
-if (!isset($_SESSION['user_id']) || !isAdmin()) {
+if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
+    exit;
+}
+
+// Simple admin check - you can modify this logic as needed
+function isAdmin() {
+    // For now, check if user email contains 'admin' or user_id is 1
+    // You should implement proper admin role checking here
+    return (isset($_SESSION['user_id']) && ($_SESSION['user_id'] == 1 || 
+            (isset($_SESSION['email']) && strpos($_SESSION['email'], 'admin') !== false)));
+}
+
+if (!isAdmin()) {
+    header('Location: dashboard.php');
     exit;
 }
 

@@ -215,18 +215,18 @@ class Transaction {
     }
 
     public function processCartCheckout($user_id, $payment_method = 'cod') {
-        // Get cart items
-        require_once 'Cart.php';
-        $cart = new Cart($this->conn);
-        $cart_items = $cart->getItems($user_id);
+        // Cart functionality removed
+        return false;
+        // $cart = new Cart($this->conn); // Removed
+        // $cart_items = $cart->getItems($user_id); // Removed
         
-        if (empty($cart_items)) {
-            return false;
-        }
+        // if (empty($cart_items)) {
+        //     return false;
+        // }
         
         $transaction_ids = [];
         
-        foreach ($cart_items as $item) {
+                    // foreach ($cart_items as $item) {
             $transaction_data = [
                 'id_produk' => $item['id_produk'],
                 'id_pembeli' => $user_id,
@@ -245,7 +245,7 @@ class Transaction {
         
         if (!empty($transaction_ids)) {
             // Clear cart after successful checkout
-            $cart->clearCart($user_id);
+            // $cart->clearCart($user_id); // Removed
         }
         
         return $transaction_ids;
