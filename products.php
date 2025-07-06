@@ -146,7 +146,7 @@ $categories = $product->getCategories();
                 </div>
             <?php else: ?>
                 <?php foreach ($products as $item): ?>
-                    <div class="card">
+                    <div class="card" onclick="window.location.href='product.php?id=<?= $item['id_produk'] ?>'" style="cursor: pointer;">
                         <div style="position: relative;">
                                                      <img src="<?= $item['foto1'] ? 'uploads/produk/' . $item['foto1'] : 'assets/images/no-image.svg' ?>" 
                               alt="<?= htmlspecialchars($item['judul']) ?>" class="card-img">
@@ -179,15 +179,18 @@ $categories = $product->getCategories();
                             <div class="card-footer">
                                 <span class="card-seller">oleh <?= htmlspecialchars($item['nama_penjual']) ?></span>
                                 <div class="card-actions">
-                                    <a href="product.php?id=<?= $item['id_produk'] ?>" class="btn btn-primary btn-sm">
-                                        <span class="view-icon">👁</span> Lihat
-                                    </a>
                                     <?php
                                     $whatsapp_message = "Halo, saya tertarik dengan produk " . $item['judul'] . " seharga " . ($item['tipe_barang'] === 'donasi' ? 'GRATIS' : formatRupiah($item['harga'])) . ". Apakah masih tersedia?";
-                                    $whatsapp_link = "https://wa.me/62" . preg_replace('/[^0-9]/', '', $item['nomor_wa']) . "?text=" . urlencode($whatsapp_message);
+                                    $whatsapp_number = preg_replace('/[^0-9]/', '', $item['nomor_wa']);
+                                    if (substr($whatsapp_number, 0, 1) === '0') {
+                                        $whatsapp_number = '62' . substr($whatsapp_number, 1);
+                                    } elseif (substr($whatsapp_number, 0, 2) !== '62') {
+                                        $whatsapp_number = '62' . $whatsapp_number;
+                                    }
+                                    $whatsapp_link = "https://wa.me/" . $whatsapp_number . "?text=" . urlencode($whatsapp_message);
                                     ?>
-                                    <a href="<?= $whatsapp_link ?>" target="_blank" class="btn btn-success btn-sm">
-                                        💬 WA
+                                    <a href="<?= $whatsapp_link ?>" target="_blank" class="btn btn-success btn-sm" onclick="event.stopPropagation(); window.open(this.href, '_blank'); return false;">
+                                        💬 Hubungi Penjual
                                     </a>
                                 </div>
                             </div>

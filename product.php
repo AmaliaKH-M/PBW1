@@ -33,7 +33,13 @@ $whatsapp_message = "Halo, saya tertarik dengan produk: " . $item['judul'] . "\n
 $whatsapp_message .= "Harga: " . ($item['tipe_barang'] === 'donasi' ? 'GRATIS' : formatRupiah($item['harga'])) . "\n";
 $whatsapp_message .= "Kondisi: " . $item['kondisi'] . "\n\n";
 $whatsapp_message .= "Apakah masih tersedia?";
-$whatsapp_link = "https://wa.me/" . preg_replace('/[^0-9]/', '', $item['nomor_wa']) . "?text=" . urlencode($whatsapp_message);
+$whatsapp_number = preg_replace('/[^0-9]/', '', $item['nomor_wa']);
+if (substr($whatsapp_number, 0, 1) === '0') {
+    $whatsapp_number = '62' . substr($whatsapp_number, 1);
+} elseif (substr($whatsapp_number, 0, 2) !== '62') {
+    $whatsapp_number = '62' . $whatsapp_number;
+}
+$whatsapp_link = "https://wa.me/" . $whatsapp_number . "?text=" . urlencode($whatsapp_message);
 ?>
 
 <!DOCTYPE html>
@@ -191,7 +197,7 @@ $whatsapp_link = "https://wa.me/" . preg_replace('/[^0-9]/', '', $item['nomor_wa
                 <h2>Produk Serupa</h2>
                 <div class="product-grid">
                     <?php foreach ($related_products as $related): ?>
-                        <div class="card">
+                        <div class="card" onclick="window.location.href='product.php?id=<?= $related['id_produk'] ?>'" style="cursor: pointer;">
                             <div style="position: relative;">
                                                             <img src="<?= $related['foto1'] ? 'uploads/produk/' . $related['foto1'] : 'assets/images/no-image.svg' ?>" 
                                  alt="<?= htmlspecialchars($related['judul']) ?>" class="card-img">
@@ -221,15 +227,18 @@ $whatsapp_link = "https://wa.me/" . preg_replace('/[^0-9]/', '', $item['nomor_wa
                                 <div class="card-footer">
                                     <span class="card-seller">oleh <?= htmlspecialchars($related['nama_penjual']) ?></span>
                                     <div class="card-actions">
-                                        <a href="product.php?id=<?= $related['id_produk'] ?>" class="btn btn-primary btn-sm">
-                                            <span class="view-icon">👁</span> Lihat
-                                        </a>
                                         <?php
                                         $whatsapp_message_related = "Halo, saya tertarik dengan produk " . $related['judul'] . " seharga " . ($related['tipe_barang'] === 'donasi' ? 'GRATIS' : formatRupiah($related['harga'])) . ". Apakah masih tersedia?";
-                                        $whatsapp_link_related = "https://wa.me/62" . preg_replace('/[^0-9]/', '', $related['nomor_wa']) . "?text=" . urlencode($whatsapp_message_related);
+                                        $whatsapp_number_related = preg_replace('/[^0-9]/', '', $related['nomor_wa']);
+                                        if (substr($whatsapp_number_related, 0, 1) === '0') {
+                                            $whatsapp_number_related = '62' . substr($whatsapp_number_related, 1);
+                                        } elseif (substr($whatsapp_number_related, 0, 2) !== '62') {
+                                            $whatsapp_number_related = '62' . $whatsapp_number_related;
+                                        }
+                                        $whatsapp_link_related = "https://wa.me/" . $whatsapp_number_related . "?text=" . urlencode($whatsapp_message_related);
                                         ?>
-                                        <a href="<?= $whatsapp_link_related ?>" target="_blank" class="btn btn-success btn-sm">
-                                            💬 WA
+                                        <a href="<?= $whatsapp_link_related ?>" target="_blank" class="btn btn-success btn-sm" onclick="event.stopPropagation(); window.open(this.href, '_blank'); return false;">
+                                            💬 Hubungi Penjual
                                         </a>
                                     </div>
                                 </div>
